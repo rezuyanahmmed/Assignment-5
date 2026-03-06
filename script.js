@@ -6,7 +6,7 @@ document.getElementById('signin').addEventListener('click', function () {
   // let password = userPass.value;
 
   if (userName === 'admin' && userPassword === 'admin123') {
-    window.location.assign('home.html');
+    window.location.assign('./home.html');
   } else {
     alert('Inavalid Username or Password');
   }
