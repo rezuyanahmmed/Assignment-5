@@ -6,9 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function fetchIssues() {
   const container = document.getElementById('issue-container');
-  
+
   fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-    .then(res => res.json()) 
+    .then(res => res.json())
     .then(result => {
       if (result.status === "success" && Array.isArray(result.data)) {
         allIssues = result.data;
@@ -42,7 +42,7 @@ function renderIssues(issues) {
 
     // কার্ডে ক্লিক করলে DaisyUI মোডাল ওপেন হবে (আইডি চেক করে নিন)
     card.onclick = () => {
-       document.getElementById('modal').showModal();
+      document.getElementById('modal').showModal();
     };
 
     card.innerHTML = `
@@ -66,7 +66,29 @@ function renderIssues(issues) {
   });
 }
 
-function filterIssues(status) {
+// function filterIssues(status) {
+//   if (status === 'all') {
+//     renderIssues(allIssues);
+//   } else {
+//     const filtered = allIssues.filter(item => item.status === status);
+//     renderIssues(filtered);
+//   }
+// }
+
+//----------------------------------------------------------------------------
+function filterIssues(status, event) {
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('bg-blue-600', 'text-white'); 
+    btn.classList.add('bg-white', 'text-gray-600');    
+  });
+
+  if (event) {
+    const clickedBtn = event.currentTarget;
+    clickedBtn.classList.remove('bg-white', 'text-gray-600');
+    clickedBtn.classList.add('bg-blue-600', 'text-white');
+  }
+
   if (status === 'all') {
     renderIssues(allIssues);
   } else {

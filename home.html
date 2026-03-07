@@ -33,12 +33,13 @@
   <main class="max-w-7xl mx-auto p-8">
     <div class="flex justify-center mb-8">
       <div class="inline-flex bg-white border rounded-lg p-1">
-        <button onclick="filterIssues('all')" class="tab-btn px-8 py-2 rounded-md font-medium bg-blue-600 text-white"
-          id="all-tab">All</button>
-        <button onclick="filterIssues('open')"
-          class="tab-btn px-8 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-50" id="open-tab">Open</button>
-        <button onclick="filterIssues('closed')"
-          class="tab-btn px-8 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-50"
+        <button onclick="filterIssues('all', event)"
+          class="filter-btn tab-btn px-8 py-2 rounded-md font-medium bg-blue-600 text-white" id="all-tab">All</button>
+        <button onclick="filterIssues('open', event)"
+          class="filter-btn tab-btn px-8 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-50"
+          id="open-tab">Open</button>
+        <button onclick="filterIssues('closed', event)"
+          class="filter-btn tab-btn px-8 py-2 rounded-md font-medium text-slate-600 hover:bg-slate-50"
           id="closed-tab">Closed</button>
       </div>
     </div>
