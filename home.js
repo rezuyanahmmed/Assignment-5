@@ -4,24 +4,22 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchIssues();
 });
 
-async function fetchIssues() {
+function fetchIssues() {
   const container = document.getElementById('issue-container');
-  const countText = document.getElementById('issue-count');
-
-  try {
-    const res = await fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues');
-    const result = await res.json();
-
-    if (result.status === "success" && Array.isArray(result.data)) {
-      allIssues = result.data;
-      renderIssues(allIssues);
-    } else {
-      container.innerHTML = "<p class='text-center col-span-4'>No data found!</p>";
-    }
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    container.innerHTML = "<p class='text-center col-span-4 text-red-500'>ডাটা লোড করতে সমস্যা হয়েছে!</p>";
-  }
+  
+  fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
+    .then(res => res.json()) 
+    .then(result => {
+      if (result.status === "success" && Array.isArray(result.data)) {
+        allIssues = result.data;
+        renderIssues(allIssues);
+      } else {
+        container.innerHTML = "<p class='text-center col-span-4'>No data found!</p>";
+      }
+    })
+    .catch(err => {
+      console.log("Error:", err);
+    });
 }
 
 function renderIssues(issues) {
@@ -42,8 +40,10 @@ function renderIssues(issues) {
             <span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] font-bold uppercase">${label}</span>
         `).join('');
 
-    
-    card.onclick = () => showIssueDetails(issue.id);
+    // কার্ডে ক্লিক করলে DaisyUI মোডাল ওপেন হবে (আইডি চেক করে নিন)
+    card.onclick = () => {
+       document.getElementById('modal').showModal();
+    };
 
     card.innerHTML = `
             <div class="flex justify-between items-center mb-3">
@@ -74,6 +74,3 @@ function filterIssues(status) {
     renderIssues(filtered);
   }
 }
-
-// Modal---------------------
-
