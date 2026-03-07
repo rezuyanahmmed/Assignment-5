@@ -66,21 +66,14 @@ function renderIssues(issues) {
   });
 }
 
-// function filterIssues(status) {
-//   if (status === 'all') {
-//     renderIssues(allIssues);
-//   } else {
-//     const filtered = allIssues.filter(item => item.status === status);
-//     renderIssues(filtered);
-//   }
-// }
+
 
 //----------------------------------------------------------------------------
 function filterIssues(status, event) {
   const buttons = document.querySelectorAll('.filter-btn');
   buttons.forEach(btn => {
-    btn.classList.remove('bg-blue-600', 'text-white'); 
-    btn.classList.add('bg-white', 'text-gray-600');    
+    btn.classList.remove('bg-blue-600', 'text-white');
+    btn.classList.add('bg-white', 'text-gray-600');
   });
 
   if (event) {
@@ -96,3 +89,26 @@ function filterIssues(status, event) {
     renderIssues(filtered);
   }
 }
+
+// search box er function
+// পেজ লোড হওয়ার পর সার্চ বক্সের জন্য লিসেনার সেট করা
+const searchBox = document.getElementById('search-input');
+
+if (searchBox) {
+  searchBox.addEventListener('input', () => {
+    const searchText = searchBox.value;
+
+    if (searchText === "") {
+      fetchIssues();
+      return;
+    }
+
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`)
+      .then(res => res.json())
+      .then(result => {
+        const searchData = Array.isArray(result) ? result : (result.data || []);
+        renderIssues(searchData);
+      })
+      .catch(err => console.log("Search Error:", err));
+  });
+};
