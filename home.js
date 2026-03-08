@@ -40,7 +40,7 @@ function renderIssues(issues) {
             <span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px] font-bold uppercase">${label}</span>
         `).join('');
 
-    // কার্ডে ক্লিক করলে DaisyUI মোডাল ওপেন হবে (আইডি চেক করে নিন)
+    //Modal
     card.onclick = () => {
       document.getElementById('modal').showModal();
     };
@@ -91,7 +91,6 @@ function filterIssues(status, event) {
 }
 
 // search box er function
-// পেজ লোড হওয়ার পর সার্চ বক্সের জন্য লিসেনার সেট করা
 const searchBox = document.getElementById('search-input');
 
 if (searchBox) {
